@@ -1,0 +1,69 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    background-color: #fff;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: none;
+    padding: 0.5rem 1rem;
+}
+
+.card-body {
+    padding: 0.5rem 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.875rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.25em 0.4em;
+    text-transform: uppercase;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+}
+
+.badge-danger {
+    background-color: #dc3545;    
+}
+
+.badge-primary {
+    background-color: #007bff;
+}    
+
+.badge-secondary {
+    background-color: #6c757d;
+}    
+
+.badge-light {
+    background-color: #f8f9fa;
+}    
+
+.badge-dark {
+    background-color: #343a40;
+}
+
