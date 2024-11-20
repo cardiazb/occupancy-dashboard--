@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Occupancy Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/echarts.js"></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="myChart" width="600" height="600"></canvas>
+    </div>
+    <script src="js/socket.io.min.js"></script>
+    <script>
+        var app = {};
+        var chartDom = document.getElementById('myChart');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+
+        const categories = (function () {
+            let now = new Date();
+            let res = [];
+            let len = 15;
+            while (len--) {
+                res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                now = new Date(+now - 2000);
+            }
+            return res;
+        })();
+
+
+        const data = (function () {
+            let res = [];
+            let len = 15;
+            while (len--) {
+                res.push(Math.round(Math.random() * 100));
+            }
+            return res;
+        })();
+
+        option = {
+            color: ['#e5e5e5'],
+            backgroundColor: '#283b56',
+            textStyle: {
+                color: '#fff'
+            },
+            title: {
+                text: 'Occupancy',
+                textStyle: {
+                    color: '#fff'
+                },
+                
+                left: 'center',
+
+                
+
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
+            legend: {},
+            xAxis:
+            {
+                type: 'category',
+                data: categories
+            },
+            yAxis:
+            {
+
+                type: 'value',
+                name: 'Quantity'
+            },
+            series:
+            {   
+                type: 'bar',
+                data: data
+            }
+
+        };
+        app.count = 11;
+        
+        
+            setInterval(function () {
+            let axisData = new Date().toLocaleTimeString().replace(/^\D*/, '');
+            data.shift();
+            data.push(Math.round(Math.random() * 100));
+
+            categories.shift();
+            categories.push(axisData);
+
+            myChart.setOption({
+                xAxis:
+                {
+                    data: categories
+                },
+
+                series:
+                {
+                    data: data
+                }
+
+            });
+        }, 10000);
+
+        
+
+        option && myChart.setOption(option);
+        const socket = io();
+        socket.on('occupancy', occupancy => {
+            let cam = occupancy.camera;
+            let quantity = occupancy.count;
+            console.log(cam, quantity);
+            data.shift();
+            categories.shift();
+            data.push(quantity);
+            categories.push(cam);
+            myChart.setOption({
+                xAxis:
+                {
+                    data: categories
+                },
+                series:
+                {
+                    data: data
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

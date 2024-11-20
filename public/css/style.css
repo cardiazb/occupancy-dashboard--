@@ -1,0 +1,13 @@
+body{
+    margin: 0%;
+    padding: 0%;
+    background-color: #283b56;
+}
+
+div{
+    display: grid;
+    place-items: center;
+    margin: auto;
+    min-height: 100vh;
+    color: white;
+}
